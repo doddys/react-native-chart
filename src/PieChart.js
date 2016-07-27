@@ -41,15 +41,20 @@ export default class PieChart extends Component<void, any, any> {
 
 		// TODO: Read stroke width from props?
 		const STROKE_WIDTH = 1;
-		const radius = (this.props.height / 2) - STROKE_WIDTH;
+		const outerRadius = (this.props.height / 2) - STROKE_WIDTH;
+		const innerRadius = outerRadius * this.props.pieCenterRatio;
 
-		const centerX = this.props.width / 2;
-		const centerY = this.props.height / 2;
+		const centerX = (this.props.width / 2);
+		const centerY = (this.props.height / 2);
 
 		// Gather sum of all data to determine angles
 		let sum = 0;
 		const data = this.props.data || [];
-		data.forEach(n => { sum += (n[1] > 0) ? n[1] : 0.001; });
+		data.forEach(n => { sum += (n[1] > 0) ? n[1] : 0; });
+
+		//avoid division by 0
+		sum = (sum < 0) ? 0.001 : sum;
+
 		const sectors = data.map(n => Math.floor(360 * (n[1]/sum)));
 		let startAngle = 0;
 
@@ -67,7 +72,9 @@ export default class PieChart extends Component<void, any, any> {
 			if ((i === sectors.length - 1) && endAngle < 360) {
 				endAngle = 360;
 			}
-			arcs.push({ startAngle, endAngle, outerRadius: radius });
+			arcs.push({ startAngle, endAngle,  innerRadius: innerRadius, outerRadius: outerRadius });
+
+			console.log("COLOR: " + getColor(COLORS, i));
 			colors.push(getColor(COLORS, i));
 			startAngle += sectionPiece;
 		});
@@ -75,8 +82,9 @@ export default class PieChart extends Component<void, any, any> {
 			<TouchableWithoutFeedback onPress={this._handlePress}>
 				<View>
 					<Surface width={this.props.width} height={this.props.height}>
-						<Group originX={centerX} width={this.props.width} height={this.props.height} originY={centerY} rotation={this.state.rotation}>
+						<Group x={STROKE_WIDTH} width={this.props.width} height={this.props.height} y={STROKE_WIDTH} rotation={this.state.rotation}>
 							{arcs.map((arc, i) => {
+								console.log("piece " + colors[i]);
 								return (
 									<Wedge
 										stroke={colors[i]}

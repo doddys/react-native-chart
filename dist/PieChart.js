@@ -41,7 +41,8 @@ C.LIGHT_PURPLE];
 
 // TODO: Read stroke width from props?
 var STROKE_WIDTH=1;
-var radius=this.props.height/2-STROKE_WIDTH;
+var outerRadius=this.props.height/2-STROKE_WIDTH;
+var innerRadius=outerRadius*this.props.pieCenterRatio;
 
 var centerX=this.props.width/2;
 var centerY=this.props.height/2;
@@ -49,7 +50,11 @@ var centerY=this.props.height/2;
 // Gather sum of all data to determine angles
 var sum=0;
 var data=this.props.data||[];
-data.forEach(function(n){sum+=n[1]>0?n[1]:0.001;});
+data.forEach(function(n){sum+=n[1]>0?n[1]:0;});
+
+//avoid division by 0
+sum=sum<0?0.001:sum;
+
 var sectors=data.map(function(n){return Math.floor(360*(n[1]/sum));});
 var startAngle=0;
 
@@ -67,7 +72,9 @@ return;
 if(i===sectors.length-1&&endAngle<360){
 endAngle=360;
 }
-arcs.push({startAngle:startAngle,endAngle:endAngle,outerRadius:radius});
+arcs.push({startAngle:startAngle,endAngle:endAngle,innerRadius:innerRadius,outerRadius:outerRadius});
+
+console.log("COLOR: "+getColor(COLORS,i));
 colors.push(getColor(COLORS,i));
 startAngle+=sectionPiece;
 });
@@ -75,8 +82,9 @@ return(
 _react2.default.createElement(_reactNative.TouchableWithoutFeedback,{onPress:this._handlePress},
 _react2.default.createElement(_reactNative.View,null,
 _react2.default.createElement(Surface,{width:this.props.width,height:this.props.height},
-_react2.default.createElement(Group,{originX:centerX,width:this.props.width,height:this.props.height,originY:centerY,rotation:this.state.rotation},
+_react2.default.createElement(Group,{x:STROKE_WIDTH,width:this.props.width,height:this.props.height,y:STROKE_WIDTH,rotation:this.state.rotation},
 arcs.map(function(arc,i){
+console.log("piece "+colors[i]);
 return(
 _react2.default.createElement(_Wedge2.default,_extends({
 stroke:colors[i],

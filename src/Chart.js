@@ -53,6 +53,7 @@ export default class Chart extends Component<void, any, any> {
 		verticalGridStep: 4,
 		xAxisHeight: 20,
 		yAxisWidth: 30,
+		pieCenterRatio: 0,
 	};
 
 	constructor(props : any) {
@@ -244,7 +245,7 @@ Chart.propTypes = {
 	showDataPoint: PropTypes.bool, // TODO
 
 	// Pie chart props
-	// pieCenterRatio: PropTypes.number, // TODO
+	pieCenterRatio: PropTypes.number,
 	sliceColors: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.number, PropTypes.string])),
 	animationDuration: PropTypes.number,
 	axisColor: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),

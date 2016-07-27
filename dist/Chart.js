@@ -55,6 +55,7 @@ Chart=function(_Component){_inherits(Chart,_Component);
 
 
 
+
 function Chart(props){_classCallCheck(this,Chart);var _this=_possibleConstructorReturn(this,Object.getPrototypeOf(Chart).call(this,
 props));_this.
 
@@ -217,7 +218,7 @@ maxVerticalBound:_this2.state.bounds.max}))));
 }()));
 
 
-}}]);return Chart;}(_react.Component);Chart.defaultProps={data:[],animated:true,animationDuration:300,axisColor:C.BLACK,axisLabelColor:C.BLACK,axisLineWidth:1,axisTitleColor:C.GREY,axisTitleFontSize:16,chartFontSize:14,dataPointRadius:3,gridColor:C.BLACK,gridLineWidth:0.5,hideHorizontalGridLines:false,hideVerticalGridLines:false,horizontalScale:1,labelFontSize:10,lineWidth:1,showAxis:true,showDataPoint:false,showGrid:true,showXAxisLabels:true,showYAxisLabels:true,tightBounds:false,verticalGridStep:4,xAxisHeight:20,yAxisWidth:30};exports.default=Chart;
+}}]);return Chart;}(_react.Component);Chart.defaultProps={data:[],animated:true,animationDuration:300,axisColor:C.BLACK,axisLabelColor:C.BLACK,axisLineWidth:1,axisTitleColor:C.GREY,axisTitleFontSize:16,chartFontSize:14,dataPointRadius:3,gridColor:C.BLACK,gridLineWidth:0.5,hideHorizontalGridLines:false,hideVerticalGridLines:false,horizontalScale:1,labelFontSize:10,lineWidth:1,showAxis:true,showDataPoint:false,showGrid:true,showXAxisLabels:true,showYAxisLabels:true,tightBounds:false,verticalGridStep:4,xAxisHeight:20,yAxisWidth:30,pieCenterRatio:0.5};exports.default=Chart;
 
 
 Chart.propTypes={
@@ -244,7 +245,7 @@ lineWidth:_react.PropTypes.number,
 showDataPoint:_react.PropTypes.bool,// TODO
 
 // Pie chart props
-// pieCenterRatio: PropTypes.number, // TODO
+pieCenterRatio:_react.PropTypes.number,
 sliceColors:_react.PropTypes.arrayOf(_react.PropTypes.oneOfType([_react.PropTypes.number,_react.PropTypes.string])),
 animationDuration:_react.PropTypes.number,
 axisColor:_react.PropTypes.oneOfType([_react.PropTypes.number,_react.PropTypes.string]),
