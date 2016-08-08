@@ -74,7 +74,7 @@ export default class PieChart extends Component<void, any, any> {
 			}
 			arcs.push({ startAngle, endAngle,  innerRadius: innerRadius, outerRadius: outerRadius });
 
-			console.log("COLOR: " + getColor(COLORS, i));
+			//console.log("COLOR: " + getColor(COLORS, i));
 			colors.push(getColor(COLORS, i));
 			startAngle += sectionPiece;
 		});
